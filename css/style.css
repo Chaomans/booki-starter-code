@@ -11,6 +11,8 @@
   --main-bg-color: #f2f2f2;
   --filter-bg-color: #deebff;
   --filter-border-color: #d9d9d9;
+  --footer-height: 163px;
+  --footer-height-mobile: 375px;
 }
 
 .fa-solid {
@@ -29,10 +31,16 @@ body {
 
 .main-container {
   position: relative;
+  min-height: 100vh;
   width: 100%;
+  height: 100%;
   max-width: 1440px;
   padding: 0 50px;
   box-sizing: border-box;
+}
+
+main {
+  padding-bottom: var(--footer-height);
 }
 
 a {
@@ -51,6 +59,11 @@ a {
   border-radius: 20px;
   padding: 5px;
   filter: drop-shadow(0px 3px 15px rgba(0, 0, 0, 0.1));
+  transition: 0.1s linear;
+}
+.card:hover {
+  filter: drop-shadow(0px 3px 15px rgba(0, 0, 0, 0.3));
+  transform: scale(1.02);
 }
 
 .activites .card {
@@ -98,7 +111,7 @@ header {
   width: 60px;
 }
 
-.header-menu {
+nav {
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -106,17 +119,17 @@ header {
   height: 100%;
 }
 
-.header-menu div {
+nav div {
   position: relative;
   height: 100%;
   padding-top: 15px;
 }
 
-.header-menu div a:hover {
+nav div a:hover {
   color: var(--main-color);
 }
 
-.header-menu a:hover::before {
+nav a:hover::before {
   display: block;
   position: absolute;
   content: "";
@@ -142,8 +155,25 @@ header {
 
 .informations .filter-bar {
   display: flex;
-  gap: 15px;
+  justify-content: space-between;
   align-items: center;
+  max-width: 750px;
+}
+
+.informations .filter-bar .filter-title {
+  width: 10%;
+}
+
+.informations .filter-bar .filter-title p {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.informations .filter-bar .filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
 }
 
 .informations .filter-bar button {
@@ -168,7 +198,10 @@ header {
   display: flex;
   height: 49px;
   width: 377px;
+  max-width: 377px;
   justify-content: space-between;
+  border: 1px solid var(--main-bg-color);
+  border-radius: 15px;
 }
 
 .search-bar .location i {
@@ -187,8 +220,8 @@ header {
 }
 
 .search-bar input {
-  border: 1px solid var(--main-bg-color);
   border-color: var(--main-bg-color);
+  border: none;
   width: 195px;
   outline: none;
   text-align: center;
@@ -196,15 +229,37 @@ header {
   font-weight: 700;
 }
 
+.search-bar input::placeholder {
+    color: #000;
+}
+
+.search-bar input:focus::placeholder {
+  color: #aaa;
+}
+
+.search-bar button {
+  border: 1px;
+  color: #fff;
+  background-color: var(--main-color);
+  padding: 15px 16px;
+}
+
 .search-bar .search-button {
   width: 132px;
-  border: 1px;
   border-radius: 0 15px 15px 0;
-  background-color: var(--main-color);
-  color: #fff;
   font-size: 18px;
   font-weight: 700;
-  padding: 15px 16px;
+}
+
+.search-bar .search-button-mobile i {
+  color: #fff;
+}
+
+.search-bar .search-button-mobile {
+  display: none;
+  width: 50px;
+  border-radius: 15px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 /****** info bar ******/
@@ -212,17 +267,18 @@ header {
 .info-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .info-bar .info-circle {
   width: 24px;
+  min-width: 24px;
   height: 24px;
   border: 1px solid var(--main-bg-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
 }
 
 /****** Hebergements And Populaires ***********/
@@ -249,12 +305,12 @@ header {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0 30px;
 }
 
 .hebergements a {
   width: 30%;
   margin-top: 33px;
+  min-width: 200px;
 }
 
 .hebergements-cards .card {
@@ -389,9 +445,9 @@ header {
 
 /****** footer ******/
 footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
-  height: 163px;
+  height: var(--footer-height);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -447,9 +503,153 @@ footer p {
   .populaires-cards .card-subtitle {
     font-size: 13px;
   }
+  
+  .activites-cards {
+    height: 270px;
+  }
+
+  .activites-cards img {
+    height: 75%;
+  }
+
+  .activites-cards .card-content {
+    height: 25%;
+  }
 }
 
 /* Small devices (phones, less than 768px) */
 @media (max-width: 767.98px) {
   /* ... */
+  .main-container {
+    padding: 0;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 30px;
+  }
+
+  .header-logo {
+    width: fit-content;
+    padding: 30px;
+  }
+
+  nav {
+    height: 36px;
+    width: 100%;
+  }
+
+  nav div {
+    width: 50%;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  nav a p{
+    width: 100%;
+    height: 100%;
+  }
+
+  nav a:hover::before {
+    top: initial;
+    bottom: 0;
+  }
+
+  .informations {
+    padding: 0 15px;
+    row-gap: 30px;
+    height: fit-content;
+    width: 100%;
+  }
+
+  .informations .filter-bar {
+    display: block;
+    width: 100%;
+  }
+
+  .informations .filter-bar .filters {
+    margin-top: 15px;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    width: 100%;
+  }
+
+  .filters .filter {
+    width: 170px;
+  }
+
+  .filters .filter button {
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-bar input {
+    width: calc(100% - 100px);
+  }
+
+  .search-bar .search-button-mobile {
+    display: block;
+  }
+
+  .search-bar .search-button {
+    display: none;
+  }
+
+  .hebergements-and-populaires {
+    flex-direction: column-reverse;
+  }
+  .hebergements-and-populaires section {
+    border-radius: 0;
+  }
+
+  .hebergements-and-populaires section:nth-child(1) {
+    background-color: white;
+  }
+  
+  .populaires {
+    margin-top: 0;
+  }
+
+  .populaires-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hebergements-cards a,
+  .populaires-cards a {
+    width: 95%;
+  }
+
+  .activites-cards {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+  }
+
+  .activites-cards a {
+    width: 90%;
+    height: 200px;
+  }
+  
+  main {
+    padding-bottom: var(--footer-height-mobile);
+  }
+
+  footer {
+    height: var(--footer-height-mobile);
+    flex-direction: column;
+    padding: 15px 30px;
+  }
+
+  footer div {
+    width: 100%;
+  }
 }
